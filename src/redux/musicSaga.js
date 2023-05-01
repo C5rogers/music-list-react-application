@@ -1,5 +1,5 @@
 import { takeEvery, put, all } from 'redux-saga/effects'
-import { SET_MUSIC_LIST, MUSIC_LIST, ADD_MUSIC, APPEND_MUSIC_LIST, EDIT_MUSIC, REPLACE_MUSIC, FILTER_MUSIC, DELETE_MUSIC, SET_MUSIC, GET_MUSIC, SET_WHOLE_EDITED_MUSIC, EDIT_WHOLE_MUSIC } from "./constant";
+import { SET_MUSIC_LIST, MUSIC_LIST, ADD_MUSIC, APPEND_MUSIC_LIST, EDIT_MUSIC, REPLACE_MUSIC, FILTER_MUSIC, DELETE_MUSIC, SET_MUSIC, GET_MUSIC, SET_WHOLE_EDITED_MUSIC, EDIT_WHOLE_MUSIC, SEARCH_MUSIC } from "./constant";
 import axios from 'axios';
 
 function* getMusics() {
@@ -64,6 +64,18 @@ function* deleteMusic(action) {
     })
 }
 
+function* searchMusics(action) {
+
+    let result = yield axios.get(`https://database-nine-alpha.vercel.app/musics?q=${action.query}`)
+    result = yield result.data
+    yield put({
+        type: SET_MUSIC_LIST,
+        data: result
+    })
+
+
+}
+
 
 
 function* musicSaga() {
@@ -74,7 +86,8 @@ function* musicSaga() {
         takeEvery(EDIT_MUSIC, editMusic),
         takeEvery(DELETE_MUSIC, deleteMusic),
         takeEvery(GET_MUSIC, getMusic),
-        takeEvery(EDIT_WHOLE_MUSIC, editWholeMusic)
+        takeEvery(EDIT_WHOLE_MUSIC, editWholeMusic),
+        takeEvery(SEARCH_MUSIC, searchMusics)
     ])
 
 }

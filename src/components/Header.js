@@ -1,6 +1,8 @@
+import { useSelector,useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom'
 import logo from '../image/music1.png'
 import styled from '@emotion/styled'
+import { getSearchedMusic } from '../redux/action';
 
 const HeaderElement=styled.header`
     width: 100%;
@@ -58,14 +60,33 @@ const HeaderListElement=styled.li`
 `;
 
 
+const SearchInput=styled.input`
+    font-size:.9em;
+    padding:.5em 1em;
+    outline:none;
+    border:1px solid gold;
+    text-transform:capitalize;
+    font-weight:lighter;
+    margin-right:1em;
+`;
+
+
 
 function Header(){
     
+    let data=useSelector((state)=>state.musicData)
+
+    const dispatch=useDispatch()
+
+
     return (
         <HeaderElement>
             <Logo>
                 <LogoImage src={logo} alt="" />
             </Logo>
+            <div className="searchInput">
+                <SearchInput type="text" onChange={(e)=>dispatch(getSearchedMusic(e.target.value))} name='search' placeholder='Search...' />
+            </div>
             <Navigation>
                 <HeaderList>
                     <HeaderListElement>
