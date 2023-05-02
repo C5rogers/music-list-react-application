@@ -3,7 +3,7 @@ import { SET_MUSIC_LIST, MUSIC_LIST, ADD_MUSIC, APPEND_MUSIC_LIST, EDIT_MUSIC, R
 import axios from 'axios';
 
 function* getMusics() {
-    const jsonData = yield axios.get('https://database-nine-alpha.vercel.app/musics')
+    const jsonData = yield axios.get('https://back-end-for-music-list-app.onrender.com/musics')
     const data = yield jsonData.data
     yield put({
         type: SET_MUSIC_LIST,
@@ -13,7 +13,7 @@ function* getMusics() {
 
 function* getMusic(action) {
 
-    const jsonData = yield axios.get(`https://database-nine-alpha.vercel.app/musics/${action.payload}`)
+    const jsonData = yield axios.get(`https://back-end-for-music-list-app.onrender.com/musics/${action.payload}`)
     const data = yield jsonData.data
     yield put({
         type: SET_MUSIC,
@@ -25,7 +25,7 @@ function* getMusic(action) {
 function* addMusics(action) {
 
 
-    const jsonData = yield axios.post('https://database-nine-alpha.vercel.app/musics', action.payload)
+    const jsonData = yield axios.post('https://back-end-for-music-list-app.onrender.com/musics', action.payload)
     const data = yield jsonData.data
     yield put({
         type: APPEND_MUSIC_LIST,
@@ -37,7 +37,7 @@ function* addMusics(action) {
 
 function* editMusic(action) {
 
-    const jsonData = yield axios.put(`https://database-nine-alpha.vercel.app/musics/${action.payload.id}`, action.payload)
+    const jsonData = yield axios.put(`https://back-end-for-music-list-app.onrender.com/musics/${action.payload.id}`, action.payload)
     const data = yield jsonData.data
     yield put({
         type: REPLACE_MUSIC,
@@ -47,7 +47,7 @@ function* editMusic(action) {
 }
 
 function* editWholeMusic(action) {
-    const jsonData = yield axios.put(`https://database-nine-alpha.vercel.app/musics/${action.payload.id}`, action.payload)
+    const jsonData = yield axios.put(`https://back-end-for-music-list-app.onrender.com/musics/${action.payload.id}`, action.payload)
     const data = yield jsonData.data
 
     yield put({
@@ -57,7 +57,7 @@ function* editWholeMusic(action) {
 }
 
 function* deleteMusic(action) {
-    yield axios.delete(`https://database-nine-alpha.vercel.app/musics/${action.payload}`)
+    yield axios.delete(`https://back-end-for-music-list-app.onrender.com/musics/${action.payload}`)
     yield put({
         type: FILTER_MUSIC,
         data: action.payload
@@ -66,7 +66,7 @@ function* deleteMusic(action) {
 
 function* searchMusics(action) {
 
-    let result = yield axios.get(`https://database-nine-alpha.vercel.app/musics?q=${action.query}`)
+    let result = yield axios.get(`https://back-end-for-music-list-app.onrender.com/musics?q=${action.query}`)
     result = yield result.data
     yield put({
         type: SET_MUSIC_LIST,
